@@ -4,6 +4,7 @@ const elements = {
   loginButton: () => cy.get('#login-btn'),
   logoutButton: () => cy.get('#logout-btn'),
   userNameSpan: () => cy.get('#user-name'),
+  textLogoH1: () => cy.get('header h1').contains('BIX Mini E-commerce'),
 }
 
 const HomePage = { 

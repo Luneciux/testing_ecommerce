@@ -1,9 +1,11 @@
 export default function userFactory(
+
     {
       email = email | "invalid email", 
       name = name | "invalid name",
       password = password | "invalid password",
     } = userData
+    
 ) {
 
   const functions = {
