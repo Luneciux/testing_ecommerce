@@ -7,11 +7,9 @@ export default function userFactory(
 ) {
 
   const functions = {
-    toString: () => `User { email: ${email}, name: ${name} }`,
-    getPassword: () => `Password: ${password}`,
+    toString: () => `User { email: ${email}, name: ${name} }, password: ${password} }`,
   }
   
-
   return {
     email,
     name,

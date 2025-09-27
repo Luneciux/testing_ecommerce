@@ -2,13 +2,14 @@
 
 import HomePage from "../../pages/homePage"
 import userFactory from "../../utils/user/userFactory"
+import Utils from "../../utils/utils"
 
 describe('example to-do app', () => {
   beforeEach(() => {
     cy.visit('/')
   })
 
-  it.only('should login with correct credentials', () => {
+  it('should login with correct credentials', () => {
 
     const validUser = userFactory({
       ...Cypress.env('users').validUser,
@@ -19,21 +20,57 @@ describe('example to-do app', () => {
     HomePage.clickLogin();
     cy.url().should('include', '/');
     HomePage.userNameSpan().should('have.text', validUser.name);
-    
+
   })  
 
-  it('should not login with incorrect credentials and return a message to user', () => {
-    HomePage.fillEmail(Cypress.env('USER'));
-    HomePage.fillPassword(Cypress.env('PASSWORD'));
-    cy.intercept({ method: 'POST', url: '/api/auth/login' }).as('loginRequest');
+  it('should not login with incorrect credentials and return a error message to user', () => {
+
+    const invalidUser = userFactory({
+      ...Cypress.env('users').invalidUser,
+    })
+
+    HomePage.fillEmail(invalidUser.email);
+    HomePage.fillPassword(invalidUser.password);
+
+    cy.intercept({ method: 'POST', url: '/api/login' }).as('loginRequest');
+
     HomePage.clickLogin();
-    cy.wait('@loginRequest').its('response.statusCode').should('eq', 401);
+
     cy.url().should('include', '/');
+
     HomePage.userNameSpan().should('not.be.visible');
+
+    cy.wait('@loginRequest').then((interception) => {
+      assert.equal(interception.response.statusCode, 401);
+    })
+
+    Utils.getWindowAlert().should('equal', 'Invalid credentials')
+
   })
 
-  it('should not login without credentials and return a message to user', () => {
-    cy.log(Cypress.env('USER'), Cypress.env('PASSWORD'))
+  it.only('should not login without credentials and return a message to user', () => {
+    const emptyUser = userFactory({
+      ...Cypress.env('users').emptyUser,
+    })
+
+    HomePage.fillEmail(emptyUser.email);
+    HomePage.fillPassword(emptyUser.password);
+
+    cy.intercept({ method: 'POST', url: '/api/login' }).as('loginRequest');
+
+    HomePage.clickLogin();
+
+    cy.url().should('include', '/');
+
+    HomePage.userNameSpan().should('not.be.visible');
+
+    cy.wait('@loginRequest').then((interception) => {
+      assert.equal(interception.response.statusCode, 401);
+    })
+    
+    cy.on('window:alert', (str) => {
+      expect(str).to.equal('Invalid credentials')
+    })
   })
 
   it('should logout successfully', () => {
