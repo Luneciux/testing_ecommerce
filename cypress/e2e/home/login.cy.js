@@ -5,9 +5,24 @@ import userFactory from "../../utils/user/userFactory"
 import Utils from "../../utils/utils"
 
 describe('example to-do app', () => {
+
+  before(() => {
+    cy.request('/api/health').then( (res) => {
+      if(!res.isOkStatusCode)
+        throw new Error('API is down!');
+    }); 
+  });
+  
   beforeEach(() => {
-    cy.visit('/')
+    cy.visit('/');
   })
+
+  afterEach(() => {
+    if(Cypress.env('DEBUG') && Cypress.currentTest.state === 'failed') {
+      Cypress.stop();
+      return;
+    }
+  });
 
   it('should login with correct credentials', () => {
 
@@ -170,7 +185,7 @@ describe('example to-do app', () => {
     HomePage.userNameSpan().should('not.be.visible');
   })
 
-  it('should validate the inputs types', () => {
+  it('should verify the inputs types', () => {
     HomePage.emailInput().should('have.attr', 'type', 'email');
     HomePage.passwordInput().should('have.attr', 'type', 'password');
   })
