@@ -1,0 +1,41 @@
+{
+
+  "products": {
+
+    "validProduct": {
+      "name": "Valid Product",
+      "price": 19.99,
+      "stock": 100
+    },
+
+    "invalidProduct": {
+      "name": "",
+      "price": -10,
+      "stock": -5
+    },
+
+    "mockProducts": {
+      "items": [
+        {
+          "id": 1,
+          "name": "Keyboard",
+          "price": 199.9,
+          "stock": 15
+        },
+        {
+          "id": 2,
+          "name": "Mouse",
+          "price": 99.5,
+          "stock": 25
+        },
+        {
+          "id": 3,
+          "name": "Headset",
+          "price": 299,
+          "stock": 8
+        }
+      ]
+    } 
+
+  } 
+}
