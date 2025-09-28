@@ -20,6 +20,34 @@ Cypress.Commands.add('login', ({ email, password, name } = user) => {
   });
 })
 
+Cypress.Commands.add('loginWithSession', ({ email, password, name } = user) => {
+
+  cy.session('login', () => {
+    cy.visit('/');
+
+    HomePage.fillEmail(email);
+    HomePage.fillPassword(password);
+
+    cy.intercept({ method: 'POST', url: '/api/login' }).as('loginRequest');
+  
+    HomePage.clickLogin();
+    cy.url().should('include', '/');
+    HomePage.userNameSpan()
+      .should('be.visible')
+      .should('have.text', name);
+  
+    cy.wait('@loginRequest').then((interception) => {
+      assert.equal(interception.response.statusCode, 200);
+    })
+    cy.window().then((win) => {
+      assert.isNotEmpty(win.localStorage.getItem('token'));
+    });
+    
+  });
+
+
+})
+
 Cypress.Commands.add('logout', () => {
 
   cy.intercept({ method: 'POST', url: '/api/logout' }).as('logoutRequest');

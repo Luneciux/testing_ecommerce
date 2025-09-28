@@ -29,9 +29,10 @@ describe('example to-do app', () => {
 // - verificar tipo do input da quantidade
 // - criar funcao no utils para trazer o carrinho
 // - verificar se preço do produto está condizente com preço que é adicionado no carrinho
-
 // - verificar se a seção tem o label "Produtos" e está acima da de finalizar compra
-// - verificar o que ocorre quando não há produtos
+// - verificar o que ocorre quando não há produtos => nao exibe empty state = teste falha
+
+// - nao deve perder os itens do carrinho quando loga
 // - verificar casos de valor negativo na quantidade
 // - verificar regras de estoque
 // - verificar caso de quanto o estoque está zerado 
@@ -101,7 +102,7 @@ describe('example to-do app', () => {
       
     });
 
-    it.only('should match the snapshot to verify if the main section is mounted correctly', () => {
+    it('should match the snapshot to verify if the main section is mounted correctly', () => {
       
       Utils.mockResponseWithFixture('/api/products', 'products.mockProducts', 'getProducts');
       
@@ -110,6 +111,33 @@ describe('example to-do app', () => {
       cy.wait('@getProducts').then( () => {
         HomePage.mainSection()
           .compareSnapshot('main-section');
+      }); 
+      
+    });
+
+    it('should show the empty state in cases where there is no products', () => {
+      
+      Utils.mockResponseWithFixture('/api/products', 'emptyObject', 'getProducts');
+      
+      cy.reload();
+      
+      cy.wait('@getProducts').then( () => {
+        HomePage.productsList()
+          .contains('No products available')
+          .should('be.visible');
+      }); 
+      
+    });
+
+    it.only('should not lose cart history on loggin', () => {
+      
+      Utils.mockResponseWithFixture('/api/products', 'emptyObject', 'getProducts');
+      
+      cy.reload();
+      
+      cy.wait('@getProducts').then( () => {
+        HomePage.typeByIndexProductQuantity(0, 3);
+        cy.login
       }); 
       
     });

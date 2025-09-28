@@ -15,8 +15,8 @@ const Utils = {
     cy.fixture(parseIndex[0]).then((data) => {
 
       let body = parseIndex.length
-       ? parseIndex.reduce((obj, key) => obj[key], data)
-       : data;
+        ? parseIndex.reduce((obj, key) => obj[key], data)
+        : data;
 
       cy.intercept(url, { body: body }).as(alias);
       
