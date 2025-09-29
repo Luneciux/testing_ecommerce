@@ -43,19 +43,26 @@ O sistema ficará disponível geralmente em `http://localhost:3001`.
 
 ## 🧪 Rodando os Testes com Cypress
 
-1. Instale as dependências
+1. Clone este repositório
+
+```bash
+git clone https://github.com/Luneciux/testing_ecommerce.git
+cd testing_ecommerce
+```
+
+2. Instale as dependências
 
 ```bash
 npm install
 ```
 
-2. Abra o Cypress no modo interativo, selecione o navegador e rode algum dos specs
+3. Abra o Cypress no modo interativo, selecione o navegador e rode algum dos specs
 
 ```bash
 npx cypress open
 ```
 
-3. Ou rode todos os testes em modo headless
+4. Ou rode todos os testes em modo headless
 
 ```bash
 npx cypress run
