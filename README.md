@@ -22,7 +22,7 @@ Os .env foram adicionados para facilitar a execução.
 
 ## 🚀 Inicialização do Projeto
 
-### 1. Clone o repositório oficial do desafio
+1. Clone o repositório oficial do desafio
 
 ```bash
 git clone https://github.com/bixtecnologia/desafio-tecnico-qa.git
@@ -32,28 +32,35 @@ cd desafio-tecnico-qa
 2. Suba o ambiente com Docker Compose
 
 ```bash
-Copiar código
-docker-compose up
+docker-compose up 
+```
+
 Isso vai iniciar o Mini E-commerce localmente.
 
-O sistema ficará disponível geralmente em http://localhost:3001.
+O sistema ficará disponível geralmente em `http://localhost:3001`.
 
-🧪 Rodando os Testes com Cypress
+## 🧪 Rodando os Testes com Cypress
+
 1. Instale as dependências
-bash
-Copiar código
+
+```bash
 npm install
-2. Abra o Cypress no modo interativo
-bash
-Copiar código
+```
+
+2. Abra o Cypress no modo interativo, selecione o navegador e rode algum dos specs
+
+```bash
 npx cypress open
-3. Rodar todos os testes em modo headless
-bash
-Copiar código
+```
+
+3. Ou rode todos os testes em modo headless
+
+```bash
 npx cypress run
+``` 
+
 📊 Última Execução (exemplo)
-pgsql
-Copiar código
+```pgsql
 Spec                Tests  Passing  Failing  Pending
 ────────────────────────────────────────────────────
 cart.cy.js             4        2        2        -
@@ -63,6 +70,8 @@ login.cy.js           11        8        3        -
 products.cy.js        12        7        5        -
 ────────────────────────────────────────────────────
 Total                 44       31       13
+```
+
 🧱 Estratégia de Testes
 POM (Page Object Model): abstração das páginas em cypress/pages para facilitar manutenção.
 
