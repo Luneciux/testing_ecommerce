@@ -1,0 +1,11 @@
+{
+    "orderId": "9zbk1jzm",
+    "subtotal": 598.4,
+    "discount": 119.68,
+    "total": 478.71999999999997,
+    "appliedCoupon": {
+        "code": "SAVE20",
+        "discount": 20,
+        "type": "percentage"
+    }
+}

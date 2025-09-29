@@ -62,7 +62,7 @@ Cypress.Commands.add('logout', () => {
   HomePage.userNameSpan().should('not.be.visible');
 
   cy.window().then((win) => {
-    assert.isEmpty(win.localStorage.getItem('token'));
+    assert.isNull(win.localStorage.getItem('token'));
   });
 
 })

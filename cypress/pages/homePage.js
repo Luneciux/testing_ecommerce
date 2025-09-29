@@ -20,6 +20,8 @@ const elements = {
   subTotal: () => cy.get('#subtotal'),
   finalTotal: () => cy.get('#final-total'),
   discount: () => cy.get('#discount'),
+  checkoutSection: () => cy.get('#checkout-section'),
+  checkoutButton: () => cy.get('#checkout-btn'),
   body: () => cy.get('body'),
 }
 
@@ -41,6 +43,7 @@ const HomePage = {
   getProductQuantityByIndex: (productIndex) => elements.productsListItems().eq(productIndex).get(`#qty-${productIndex + 1}`),
   getProductListItemByIndex: (productIndex) => elements.productsListItems().eq(productIndex),
   clickApplyCoupon: () => elements.applyCouponButton().click(),
+
   addProducts: (products) => {
     let total = 0;
 
@@ -52,14 +55,16 @@ const HomePage = {
 
     return total;
   },
+  
   addCoupons: (coupons) => {
     coupons.forEach((coupon) => {
-      HomePage.couponInput().clear().type(coupon.code);
+      HomePage.couponInput().clear().type(coupon);
       HomePage.clickApplyCoupon();
       HomePage.couponMessage()
         .should('be.visible');    
     });
   },
+  clickCheckoutAction: () => elements.checkoutButton().click(),
 }
 
 export default HomePage;
