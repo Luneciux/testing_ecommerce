@@ -36,7 +36,7 @@ describe('example to-do app', () => {
     
   });
 
-  it('should not lose cart history on loggin', () => {
+  it('should not lose cart history on login', () => {
 
     const validUser = userFactory({
       ...Cypress.env('users').validUser,

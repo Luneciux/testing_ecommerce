@@ -1,0 +1,57 @@
+{
+  "coupons": {
+    "validCoupon": {
+      "name": "Valid Product",
+      "type": "percent",
+      "code": "SAVE20",
+      "expireDate": "2025-09-30T03:51:23+00:00",
+      "message": "Cupom aplicado: SAVE20"
+    },
+    "invalidCoupon": {
+      "name": "Invalid Product",
+      "type": "fix",
+      "code": "SAVEINVALID",
+      "expireDate": "2025-09-30T03:51:23+00:00",
+      "message": "Invalid coupon code"
+    },
+    "emptyCoupon": {
+      "name": "",
+      "type": "",
+      "code": "",
+      "expireDate": "",
+      "message": ""
+    },
+    "expiredCoupon": {
+      "name": "EXPIRED",
+      "type": "expired",
+      "code": "EXPIRED",
+      "expireDate": "2024-09-30T03:51:23+00:00",
+      "message": "Coupon is expired"
+    },
+    "mockCoupons": {
+      "items": [
+        {
+          "name": "SAVE20",
+          "type": "percent",
+          "code": "SAVE20",
+          "expireDate": "2025-09-30T03:51:23+00:00",
+          "message": "Cupom aplicado: SAVE20"
+        },
+        {
+          "name": "WELCOME10",
+          "type": "percent",
+          "code": "WELCOME10",
+          "expireDate": "2025-09-30T03:51:23+00:00",
+          "message": "Cupom aplicado: WELCOME10"
+        },
+        {
+          "name": "FIXED50",
+          "type": "fix",
+          "code": "FIXED50",
+          "expireDate": "2025-09-30T03:51:23+00:00",
+          "message": "Cupom aplicado: FIXED50"
+        }
+      ]
+    }
+  }
+}

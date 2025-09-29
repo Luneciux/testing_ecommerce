@@ -13,6 +13,13 @@ const elements = {
   cartDiv: () => cy.get('#cart'),
   cartTotal: () => cy.get('#cart-total'),
   cartCount: () => cy.get('#cart-count'),
+  couponInput: () => cy.get('#coupon-code'),
+  applyCouponButton: () => cy.get('#apply-coupon-btn'),
+  couponMessage: () => cy.get('#coupon-message'),
+  orderSummary: () => cy.get('#order-summary'),
+  subTotal: () => cy.get('#subtotal'),
+  finalTotal: () => cy.get('#final-total'),
+  discount: () => cy.get('#discount'),
   body: () => cy.get('body'),
 }
 
@@ -33,6 +40,26 @@ const HomePage = {
   },
   getProductQuantityByIndex: (productIndex) => elements.productsListItems().eq(productIndex).get(`#qty-${productIndex + 1}`),
   getProductListItemByIndex: (productIndex) => elements.productsListItems().eq(productIndex),
+  clickApplyCoupon: () => elements.applyCouponButton().click(),
+  addProducts: (products) => {
+    let total = 0;
+
+    products.forEach((product, index) => {
+      HomePage.typeByIndexProductQuantity(index, product.qty || 1);
+      HomePage.clickProductActionByIndex(index); 
+      total = total + (product.price * (product.qty || 1) )     
+    });
+
+    return total;
+  },
+  addCoupons: (coupons) => {
+    coupons.forEach((coupon) => {
+      HomePage.couponInput().clear().type(coupon.code);
+      HomePage.clickApplyCoupon();
+      HomePage.couponMessage()
+        .should('be.visible');    
+    });
+  },
 }
 
 export default HomePage;

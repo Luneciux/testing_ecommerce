@@ -253,4 +253,8 @@ describe('example to-do app', () => {
     
   });
 
+  //adicionar mais de um produto
+  //remover mais de um produto
+  //limpeza após checkout
+
 })  
