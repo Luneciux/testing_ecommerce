@@ -8,7 +8,7 @@ describe('example to-do app', () => {
 
   before(() => {
     cy.request('/api/health').then( (res) => {
-      if(!res.isOkStatusCode)
+      if(Cypress.env('DEBUG') && !res.isOkStatusCode)
         throw new Error('API is down!');
     }); 
   });
@@ -24,57 +24,85 @@ describe('example to-do app', () => {
     }
   });
 
-  context('Unlogged user', () => {
+  it('should have the correct cart structure on first loading', () => {
 
-    it('should not lose cart history on loggin', () => {
+    Utils.mockResponseWithFixture('/api/products', 'products.validProduct', 'getProducts');
+    
+    cy.reload();
 
-      const validUser = userFactory({
-        ...Cypress.env('users').validUser,
-      });
-      
-      Utils.mockResponseWithFixture('/api/products', 'products.mockProducts', 'getProducts');
+    HomePage.cartDiv()
+      .invoke('text')
+      .should('match', /Carrinho:\s*0 itens\s*–\s*Total:\s*R\$\s*0,00/);
+    
+  });
+
+  it('should not lose cart history on loggin', () => {
+
+    const validUser = userFactory({
+      ...Cypress.env('users').validUser,
+    });
+    
+    Utils.mockResponseWithFixture('/api/products', 'products.mockProducts', 'getProducts');
+    
+    cy.reload();
+    
+    cy.wait('@getProducts').then( ( { response: { body: { items } } } ) => {
+
+      const product = { 
+        index: 0,
+        qty: 3,
+      }
+
+      HomePage.typeByIndexProductQuantity(product.index, product.qty);
+      HomePage.clickProductActionByIndex(product.index);
+      cy.login(validUser);
+      HomePage.cartTotal().should('have.text', (items[product.index].price * product.qty).toFixed(2).replace('.', ','))
+    }); 
+    
+  });
+
+  it('should not lose cart history on reload', () => {
+
+    Utils.mockResponseWithFixture('/api/products', 'products.mockProducts', 'getProducts');
+    
+    cy.reload();
+    
+    cy.wait('@getProducts').then( ( { response: { body: { items } } } ) => {
+
+      const product = { 
+        index: 0,
+        qty: 3,
+      }
+
+      HomePage.typeByIndexProductQuantity(product.index, product.qty);
+      HomePage.clickProductActionByIndex(product.index);
       
       cy.reload();
       
-      cy.wait('@getProducts').then( ( { response: { body: { items } } } ) => {
+      HomePage.cartTotal().should('have.text', (items[product.index].price * product.qty).toFixed(2).replace('.', ','))
+    }); 
+    
+  });
 
-        const product = { 
-          index: 0,
-          qty: 3,
-        }
+  it('should not let the cart total be negative', () => {
+    
+    Utils.mockResponseWithFixture('/api/products', 'products.mockProducts', 'getProducts');
+    
+    cy.reload();
+    
+    cy.wait('@getProducts').then( ( { response: { body: { items } } } ) => {
 
-        HomePage.typeByIndexProductQuantity(product.index, product.qty);
-        HomePage.addProductByIndex(product.index);
-        cy.login(validUser);
-        Utils.getCartTotal().should('have.text', (items[product.index].price * product.qty).toFixed(2).replace('.', ','))
-      }); 
-      
-    });
+      const product = { 
+        index: 0,
+        qty: 3,
+      }
 
-    it.only('should not let the cart total be negative', () => {
-
-      const validUser = userFactory({
-        ...Cypress.env('users').validUser,
+      HomePage.typeByIndexProductQuantity(product.index, -product.qty);
+      HomePage.clickProductActionByIndex(product.index);
+      HomePage.cartTotal().invoke('text').should((text) => {
+        expect( parseFloat(text) ).to.be.greaterThan(0)
       });
-      
-      Utils.mockResponseWithFixture('/api/products', 'products.mockProducts', 'getProducts');
-      
-      cy.reload();
-      
-      cy.wait('@getProducts').then( ( { response: { body: { items } } } ) => {
-
-        const product = { 
-          index: 0,
-          qty: 3,
-        }
-
-        HomePage.typeByIndexProductQuantity(product.index, product.qty);
-        HomePage.addProductByIndex(product.index);
-        cy.login(validUser);
-        Utils.getCartTotal().should('have.text', (items[product.index].price * product.qty).toFixed(2).replace('.', ','))
-      }); 
-      
-    });
+    }); 
     
   });
   

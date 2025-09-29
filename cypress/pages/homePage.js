@@ -10,6 +10,7 @@ const elements = {
   productsList: () => cy.get('#product-list'),
   productsListItems: () => cy.get('#product-list').find('li'),
   mainSection: () => cy.get('main'),
+  cartDiv: () => cy.get('#cart'),
   cartTotal: () => cy.get('#cart-total'),
   cartCount: () => cy.get('#cart-count'),
   body: () => cy.get('body'),

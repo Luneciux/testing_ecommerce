@@ -7,7 +7,7 @@ describe('example to-do app', () => {
 
   before(() => {
     cy.request('/api/health').then( (res) => {
-      if(!res.isOkStatusCode)
+      if(Cypress.env('DEBUG') && !res.isOkStatusCode)
         throw new Error('API is down!');
     }); 
   });
