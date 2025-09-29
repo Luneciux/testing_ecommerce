@@ -27,6 +27,8 @@ Os .env foram adicionados para facilitar a execução.
 ```bash
 git clone https://github.com/bixtecnologia/desafio-tecnico-qa.git
 cd desafio-tecnico-qa
+```
+
 2. Suba o ambiente com Docker Compose
 
 ```bash
