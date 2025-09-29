@@ -73,31 +73,16 @@ Total                 44       31       13
 ```
 
 🧱 Estratégia de Testes
-POM (Page Object Model): abstração das páginas em cypress/pages para facilitar manutenção.
 
-Fixtures: dados mockados em cypress/fixtures para testes previsíveis.
-
-Intercepts: uso de cy.intercept para simulação e validação de requisições.
-
-Validação de Fluxos Críticos: login, carrinho, checkout e produtos.
-
-Testes visuais: screenshots salvos em cypress/screenshots para comparação de UI.
+POM (Page Object Model): abstração das páginas em cypress/pages para facilitar manutenção. 
+Fixtures: dados mockados em cypress/fixtures para testes previsíveis. 
+Intercepts: uso de cy.intercept para simulação e validação de requisições. 
+Validação de Fluxos Críticos: login, carrinho, checkout e produtos. 
+Testes visuais: screenshots salvos em cypress/screenshots para comparação de UI. 
 
 📹 Evidências
-Os testes podem ser gravados com Loom ou outra ferramenta.
 
 Prints de execução ficam disponíveis no diretório cypress/screenshots.
 
-📌 Observação
-O objetivo deste projeto é demonstrar a criação de uma pipeline de testes robusta para um mini e-commerce.
-Funcionalidades cobertas:
-✔️ Login
-✔️ Listagem e manipulação de produtos
-✔️ Carrinho de compras
-✔️ Checkout
-✔️ Validações de regras de estoque e cupons
-
-yaml
-Copiar código
 
 ---
