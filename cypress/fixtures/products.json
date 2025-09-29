@@ -35,7 +35,18 @@
           "stock": 8
         }
       ]
-    } 
+    }, 
 
-  } 
+    "mockNoStockProducts": {
+      "items": [
+        {
+          "id": 3,
+          "name": "Headset",
+          "price": 299,
+          "stock": 0
+        }
+      ]
+
+    } 
+  }
 }

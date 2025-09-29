@@ -10,6 +10,9 @@ const elements = {
   productsList: () => cy.get('#product-list'),
   productsListItems: () => cy.get('#product-list').find('li'),
   mainSection: () => cy.get('main'),
+  cartTotal: () => cy.get('#cart-total'),
+  cartCount: () => cy.get('#cart-count'),
+  body: () => cy.get('body'),
 }
 
 const HomePage = { 
@@ -19,7 +22,7 @@ const HomePage = {
   clickLogin: () => elements.loginButton().click(),
   clickLogout: () => elements.logoutButton().click(),
   getProductActionsByIndex: (productIndex) => elements.productsListItems().eq(productIndex).find('button'),
-  addProductByIndex: (productIndex) => HomePage.getProductActionsByIndex(productIndex).contains('Adicionar').click(),
+  clickProductActionByIndex: (productIndex) => HomePage.getProductActionsByIndex(productIndex).contains('Adicionar').click(),
   typeByIndexProductQuantity: (productIndex, quantity) => {
     elements.productsListItems()
       .eq(productIndex)
@@ -28,6 +31,7 @@ const HomePage = {
       .type(quantity);
   },
   getProductQuantityByIndex: (productIndex) => elements.productsListItems().eq(productIndex).get(`#qty-${productIndex + 1}`),
+  getProductListItemByIndex: (productIndex) => elements.productsListItems().eq(productIndex),
 }
 
 export default HomePage;
